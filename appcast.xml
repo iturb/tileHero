@@ -6,13 +6,13 @@
         <description>Generate swift code from colours</description>
         <language>en</language>
         <item>
-            <title>Version 0.1.0</title>
+            <title>Version 0.1.1</title>
             <description>
                 <![CDATA[
                     Start
                 ]]>
             </description>
-            <enclosure url="https://github.com/iturb/tileHero/archive/master.zip" sparkle:version="0.1.0" />
+            <enclosure url="https://github.com/iturb/tileHero/archive/master.zip" sparkle:version="0.1.1" />
         </item>
     </channel>
 </rss>
