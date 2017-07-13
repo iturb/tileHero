@@ -48,7 +48,7 @@ function makeTile(artboard)
     
     var countLayers = layers.length
     
-    for (var indexLayer = 0; indexLayer < countArtboards; indexLayer++)
+    for (var indexLayer = 0; indexLayer < countLayers; indexLayer++)
     {
         var layer = layers[indexLayer]
         randomize(layer, artboardWidth, artboardHeight)
