@@ -1,0 +1,84 @@
+var onRun = function(context)
+{
+    var artboards = []
+    var sketch = context.api()
+    var layers = sketch.selectedDocument.selectedLayers
+    
+    layers.iterate
+    (
+        function(item)
+        {
+            if (item.isArtboard)
+            {
+                artboards.push(item);
+            }
+        }
+    )
+    
+    var countArtboards = artboards.length
+    
+    if (countArtboards < 1)
+    {
+        context.document.showMessage("Select at least 1 Artboard")
+    }
+    else
+    {
+        for (var indexArtboard = 0; indexArtboard < countArtboards; indexArtboard++)
+        {
+            var artboard = artboards[indexArtboard]
+            makeTile(artboard)
+        }
+    }
+};
+
+function makeTile(artboard)
+{
+    var artboardFrame = artboard.frame
+    var artboardWidth = artboardFrame.width
+    var artboardHeight = artboardFrame.height
+    var layers = []
+    
+    artboard.iterate
+    (
+        function(item)
+        {
+            layers.push(item)
+        }
+    )
+    
+    var countLayers = layers.length
+    
+    for (var indexLayer = 0; indexLayer < countArtboards; indexLayer++)
+    {
+        var layer = layers[indexLayer]
+        randomize(layer, artboardWidth, artboardHeight)
+    }
+}
+
+function randomize(layer, artboardWidth, artboardHeight)
+{
+    var frame = layer.frame
+    var width = frame.width
+    var height = frame.height
+    var minX = 1 - width
+    var maxX = artboardWidth
+    var minY = 1 - height
+    var maxY = artboardHeight
+    
+    for (var posX = minX; posX < maxX; posX++)
+    {
+        for (var posY = minY; posY < maxY; posY++)
+        {
+            var newLayer = layer.duplicate()
+            var newFrame = newLayer.sketchObject.frame()
+            newFrame.setX(posX)
+            newFrame.setY(posY)
+            
+            posY += height
+        }
+        
+        posX += width
+    }
+    
+    layer.remove()
+}
