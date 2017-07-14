@@ -1,5 +1,6 @@
 @import "tools.cocoascript"
 
+var TITLE = "Tile Hero: Uniform fill"
 var CANCEL_BUTTON_TITLE = "CANCEL"
 var WINDOW_WIDTH = 500
 var WINDOW_HEIGHT = 300
@@ -8,7 +9,7 @@ var CANCEL_BUTTON_HEIGHT = 30
 
 var onRun = function(context)
 {
-    var window = createWindow(WINDOW_WIDTH, WINDOW_HEIGHT)
+    var window = createWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
     var cancelButton = createButton(0, 0, CANCEL_BUTTON_WIDTH, CANCEL_BUTTON_HEIGHT, CANCEL_BUTTON_TITLE, function(sender)
                                     {
                                         NSApp.stopModal()
