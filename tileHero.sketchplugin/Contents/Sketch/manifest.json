@@ -18,7 +18,7 @@
   },
   "identifier": "iturbide.tileHero",
   "appcast": "https://raw.githubusercontent.com/iturb/tileHero/master/appcast.xml",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "compatibleVersion": "45",
   "description": "Auto generate tiles",
   "authorEmail": "reach@iturbi.de",
