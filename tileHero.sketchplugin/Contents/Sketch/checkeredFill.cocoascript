@@ -1,69 +1,20 @@
 @import "tools.cocoascript"
 
-var TITLE = "Tile Hero: Uniform Fill"
-var CANCEL_BUTTON_TITLE = "Cancel"
-var NEXT_BUTTON_TITLE = "Next"
-var LABEL_TEXT = "Pixel separation"
-var FIELD_TEXT = "1"
 var NO_ARTBOARD_SELECTED = "Select at least 1 Artboard"
-var WINDOW_WIDTH = 350
-var WINDOW_HEIGHT = 140
-var CANCEL_BUTTON_WIDTH = 80
-var CANCEL_BUTTON_HEIGHT = 30
-var NEXT_BUTTON_X = 270
-var NEXT_BUTTON_WIDTH = 80
-var NEXT_BUTTON_HEIGHT = 30
-var LABEL_X = 100
-var LABEL_Y = 100
-var FIELD_X = 205
-var FIELD_Y = 100
-var FIELD_WIDTH = 30
-var FIELD_HEIGHT = 20
 
 var onRun = function(context)
 {
-    var shouldContinue = false
-    var window = createWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
-    var cancelButton = createButton(0, 0, CANCEL_BUTTON_WIDTH, CANCEL_BUTTON_HEIGHT, CANCEL_BUTTON_TITLE, function(sender)
-                                    {
-                                        window.orderOut(undefined)
-                                        NSApp.stopModal()
-                                    })
-    
-    var nextButton = createButton(NEXT_BUTTON_X, 0, NEXT_BUTTON_WIDTH, NEXT_BUTTON_HEIGHT, NEXT_BUTTON_TITLE, function(sender)
-                                    {
-                                        shouldContinue = true
-                                        window.orderOut(undefined)
-                                        NSApp.stopModal()
-                                    })
-    
-    var label = createLabel(LABEL_X, LABEL_Y, LABEL_TEXT)
-    var field = createField(FIELD_X, FIELD_Y, FIELD_WIDTH, FIELD_HEIGHT, FIELD_TEXT)
-    field.setAlignment(NSTextAlignmentRight)
-    
-    window.contentViewController().view().addSubview(cancelButton)
-    window.contentViewController().view().addSubview(nextButton)
-    window.contentViewController().view().addSubview(label)
-    window.contentViewController().view().addSubview(field)
-    
-    NSApp.runModalForWindow(window)
-    
-    if (shouldContinue)
-    {
-        var separation = field.stringValue().intValue()
-        var uniformFill = new UniformFill(context)
-        uniformFill.makeTile(separation)
-    }
+    var checkerdFill = new CheckeredFill(context)
+    checkerdFill.makeTile()
 };
 
-function UniformFill(context)
+function CheckeredFill(context)
 {
     this.context = context
     this.sketch = context.api()
-    this.separation
 }
 
-UniformFill.prototype.makeTile = function(separation)
+CheckeredFill.prototype.makeTile = function()
 {
     this.separation = separation
     var artboards = []
@@ -97,7 +48,7 @@ UniformFill.prototype.makeTile = function(separation)
     }
 }
 
-UniformFill.prototype.makeTileForArtboard = function(artboard)
+CheckeredFill.prototype.makeTileForArtboard = function(artboard)
 {
     var artboardFrame = artboard.frame
     var artboardWidth = artboardFrame.width
@@ -122,13 +73,13 @@ UniformFill.prototype.makeTileForArtboard = function(artboard)
     }
 }
 
-UniformFill.prototype.makeFill = function(layer, artboardWidth, artboardHeight)
+CheckeredFill.prototype.makeFill = function(layer, artboardWidth, artboardHeight)
 {
     var frame = layer.frame
     var width = frame.width
     var height = frame.height
-    var width_separation = width + this.separation
-    var height_separation = height + this.separation
+    var width2 = width + width
+    var height2 = height + height
     var maxX = artboardWidth
     var maxY = artboardHeight
     
@@ -141,10 +92,10 @@ UniformFill.prototype.makeFill = function(layer, artboardWidth, artboardHeight)
             newFrame.setX(posX)
             newFrame.setY(posY)
             
-            posY += height_separation
+            posY += height2
         }
         
-        posX += width_separation
+        posX += width2
     }
     
     layer.remove()
