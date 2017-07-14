@@ -64,19 +64,19 @@ var onRun = function(context)
             ratio = MAX_RATIO
         }
         
-        var randomUniformSpaced = new RandomUniformSpaced(context, ratio)
-        randomUniformSpaced.makeTile()
+        var randomDynamicSpaced = new RandomDynamicSpaced(context, ratio)
+        randomDynamicSpaced.makeTile()
     }
 };
 
-function RandomUniformSpaced(context, ratio)
+function RandomDynamicSpaced(context, ratio)
 {
     this.context = context
     this.sketch = context.api()
     this.ratio = ratio
 }
 
-RandomUniformSpaced.prototype.makeTile = function()
+RandomDynamicSpaced.prototype.makeTile = function()
 {
     var artboards = []
     var layers = this.sketch.selectedDocument.selectedLayers
@@ -109,7 +109,7 @@ RandomUniformSpaced.prototype.makeTile = function()
     }
 }
 
-RandomUniformSpaced.prototype.makeTileForArtboard = function(artboard)
+RandomDynamicSpaced.prototype.makeTileForArtboard = function(artboard)
 {
     var artboardFrame = artboard.frame
     var artboardWidth = artboardFrame.width
@@ -134,41 +134,112 @@ RandomUniformSpaced.prototype.makeTileForArtboard = function(artboard)
     }
 }
 
-RandomUniformSpaced.prototype.makeFill = function(layer, artboardWidth, artboardHeight)
+RandomDynamicSpaced.prototype.makeFill = function(layer, artboardWidth, artboardHeight)
 {
+    var allPositions = []
+    var drawPositions = []
     var frame = layer.frame
     var width = frame.width
     var height = frame.height
+    var minX = width - 1
+    var minY = height - 1
     var maxX = artboardWidth
     var maxY = artboardHeight
     
-    for (var posX = 0; posX < maxX;)
+    for (var posX = minX; posX < maxX; posX++)
     {
-        for (var posY = 0; posY < maxY;)
+        for (var posY = minY; posY < maxY;)
         {
             var draw = this.shouldDraw()
             
             if (draw)
             {
-                var newLayer = layer.duplicate()
-                var newFrame = newLayer.sketchObject.frame()
-                newFrame.setX(posX)
-                newFrame.setY(posY)
+                var position = new Position(posX, posY)
+                allPositions.push(position)
+                
+                posY += height
             }
+            else
+            {
+                posY++
+            }
+        }
+    }
+    
+    var countPositions = allPositions.length
+    
+    for (var indexPosition = 0; indexPosition < countPositions; indexPosition++)
+    {
+        var position = allPositions[indexPosition]
+        var positionMinX = position.x
+        var positionMinY = position.y
+        var positionMaxX = positionMinX + width
+        var positionMaxY = positionMinY + height
+        var shouldAdd = true
+        
+        var countDraws = drawPositions.length
+        
+        for (var indexDraw = 0; indexDraw < countDraws; indexDraw++)
+        {
+            var item = drawPositions[indexDraw]
+            var itemMinX = item.x
+            var itemMinY = item.y
+            var itemMaxX = itemMinX + width
+            var itemMaxY = itemMinY + height
             
-            posY += height
+            if (positionMinX < itemMaxX)
+            {
+                if (positionMinY < itemMaxY)
+                {
+                    if (positionMaxX > itemMinX)
+                    {
+                        if (positionMaxY > itemMinY)
+                        {
+                            shouldAdd = false
+                            
+                            break
+                        }
+                    }
+                }
+            }
         }
         
-        posX += width
+        if (shouldAdd)
+        {
+            drawPositions.push(position)
+        }
+    }
+    
+    this.draw(layer, drawPositions)
+}
+
+RandomDynamicSpaced.prototype.draw = function(layer, positions)
+{
+    var countPositions = positions.length
+    
+    for (indexPosition = 0; indexPosition < countPositions; indexPosition++)
+    {
+        var position = positions[indexPosition]
+        
+        var newLayer = layer.duplicate()
+        var newFrame = newLayer.sketchObject.frame()
+        newFrame.setX(position.x)
+        newFrame.setY(position.y)
     }
     
     layer.remove()
 }
 
-RandomUniformSpaced.prototype.shouldDraw = function()
+RandomDynamicSpaced.prototype.shouldDraw = function()
 {
     var random = Math.random() * COMPARE_RATIO
     var value = Math.floor(random)
     
     return value < this.ratio
+}
+
+function Position(x, y)
+{
+    this.x = x
+    this.y = y
 }
