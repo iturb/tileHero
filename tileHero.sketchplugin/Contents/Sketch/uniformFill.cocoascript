@@ -2,19 +2,47 @@
 
 var TITLE = "Tile Hero: Uniform fill"
 var CANCEL_BUTTON_TITLE = "CANCEL"
-var WINDOW_WIDTH = 500
-var WINDOW_HEIGHT = 300
+var NEXT_BUTTON_TITLE = "CANCEL"
+var LABEL_TEXT = "Pixel separation"
+var FIELD_TEXT = "0"
+var WINDOW_WIDTH = 300
+var WINDOW_HEIGHT = 140
 var CANCEL_BUTTON_WIDTH = 60
 var CANCEL_BUTTON_HEIGHT = 30
+var NEXT_BUTTON_X = 240
+var NEXT_BUTTON_WIDTH = 60
+var NEXT_BUTTON_HEIGHT = 30
+var LABEL_X = 20
+var LABEL_Y = 80
+var FIELD_X = 80
+var FIELD_Y = 80
+var FIELD_WIDTH = 60
+var FIELD_HEIGHT = 60
 
 var onRun = function(context)
 {
     var window = createWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
+    var shouldContinue = false
     var cancelButton = createButton(0, 0, CANCEL_BUTTON_WIDTH, CANCEL_BUTTON_HEIGHT, CANCEL_BUTTON_TITLE, function(sender)
                                     {
                                         NSApp.stopModal()
                                         window.close()
                                     })
+    
+    var nextButton = createButton(NEXT_BUTTON_X, 0, NEXT_BUTTON_WIDTH, NEXT_BUTTON_HEIGHT, NEXT_BUTTON_TITLE, function(sender)
+                                    {
+                                        shouldContinue = true
+                                        NSApp.stopModal()
+                                        window.close()
+                                    })
+    
+    var label = createLabel(LABEL_X, LABEL_Y, LABEL_TEXT)
+    var field = createField(FIELD_X, FIELD_Y, FIELD_WIDTH, FIELD_HEIGHT, FIELD_TEXT)
+    
+    window.contentViewController().view().addSubview(cancelButton)
+    window.contentViewController().view().addSubview(nextButton)
+    window.contentViewController().view().addSubview(label)
+    window.contentViewController().view().addSubview(field)
     
     NSApp.runModalForWindow(window)
     
