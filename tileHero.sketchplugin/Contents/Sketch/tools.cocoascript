@@ -48,3 +48,13 @@ function createLabel(x, y, text)
     
     return field
 }
+
+function createField(x, y, width, height, text)
+{
+    var frame = NSMakeRect(x, y, width, height)
+    var field = NSTextField.alloc().initWithFrame(frame)
+    field.setBordered(false)
+    field.setStringValue(text)
+    
+    return field
+}
