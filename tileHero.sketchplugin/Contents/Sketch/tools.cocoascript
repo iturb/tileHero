@@ -10,7 +10,7 @@ function createWindow(width, height)
     var window = NSWindow.new()
     window.setFrameOrigin(windowOrigin)
     window.setContentSize(windowSize)
-    window.styleMask = NSClosableWindowMask|NSTitledWindowMask|NSTexturedBackgroundWindowMask
+    window.styleMask = NSTitledWindowMask | NSTexturedBackgroundWindowMask
     
     var controller = [[NSViewController alloc] initWithNibName:"" bundle:nil]
     window.setContentViewController(controller)
