@@ -1,0 +1,114 @@
+@import "tools.cocoascript"
+
+var NO_ARTBOARD_SELECTED = "Select at least 1 Artboard"
+
+var onRun = function(context)
+{
+    var checkerdFill = new CheckeredFill(context)
+    checkerdFill.makeTile()
+};
+
+function CheckeredFill(context)
+{
+    this.context = context
+    this.sketch = context.api()
+}
+
+CheckeredFill.prototype.makeTile = function()
+{
+    var artboards = []
+    var layers = this.sketch.selectedDocument.selectedLayers
+    
+    layers.iterate
+    (
+        function(item)
+        {
+            if (item.isArtboard)
+            {
+                artboards.push(item);
+            }
+        }
+     )
+    
+    var countArtboards = artboards.length
+    
+    if (countArtboards < 1)
+    {
+        this.context.document.showMessage(NO_ARTBOARD_SELECTED)
+    }
+    else
+    {
+        for (var indexArtboard = 0; indexArtboard < countArtboards; indexArtboard++)
+        {
+            var artboard = artboards[indexArtboard]
+            
+            this.makeTileForArtboard(artboard)
+        }
+    }
+}
+
+CheckeredFill.prototype.makeTileForArtboard = function(artboard)
+{
+    var artboardFrame = artboard.frame
+    var artboardWidth = artboardFrame.width
+    var artboardHeight = artboardFrame.height
+    var layers = []
+    
+    artboard.iterate
+    (
+        function(item)
+        {
+            layers.push(item)
+        }
+    )
+    
+    var countLayers = layers.length
+    
+    for (var indexLayer = 0; indexLayer < countLayers; indexLayer++)
+    {
+        var layer = layers[indexLayer]
+        
+        this.makeFill(layer, artboardWidth, artboardHeight)
+    }
+}
+
+CheckeredFill.prototype.makeFill = function(layer, artboardWidth, artboardHeight)
+{
+    var frame = layer.frame
+    var width = frame.width
+    var height = frame.height
+    var width2 = width + width
+    var height2 = height + height
+    var maxX = artboardWidth
+    var maxY = artboardHeight
+    var line = 0
+    
+    for (var posX = 0; posX < maxX;)
+    {
+        var minY
+        
+        if (line % 2 == 0)
+        {
+            minY = height
+        }
+        else
+        {
+            minY = 0
+        }
+        
+        for (var posY = minY; posY < maxY;)
+        {
+            var newLayer = layer.duplicate()
+            var newFrame = newLayer.sketchObject.frame()
+            newFrame.setX(posX)
+            newFrame.setY(posY)
+            
+            posY += height2
+        }
+        
+        posX += width
+        line++
+    }
+    
+    layer.remove()
+}
