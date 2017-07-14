@@ -51,19 +51,19 @@ var onRun = function(context)
     if (shouldContinue)
     {
         var separation = field.stringValue().intValue()
-        var uniformFill = new UniformFill(context)
-        uniformFill.makeTile(separation)
+        var uniformFill = new UniformFill(context, separation)
+        uniformFill.makeTile()
     }
 };
 
-function UniformFill(context)
+function UniformFill(context, separation)
 {
     this.context = context
     this.sketch = context.api()
-    this.separation
+    this.separation = separation
 }
 
-UniformFill.prototype.makeTile = function(separation)
+UniformFill.prototype.makeTile = function()
 {
     this.separation = separation
     var artboards = []
