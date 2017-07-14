@@ -1,22 +1,22 @@
 @import "tools.cocoascript"
 
-var TITLE = "Tile Hero: Uniform fill"
+var TITLE = "Tile Hero: Uniform Fill"
 var CANCEL_BUTTON_TITLE = "Cancel"
 var NEXT_BUTTON_TITLE = "Next"
 var LABEL_TEXT = "Pixel separation"
 var FIELD_TEXT = "0"
-var WINDOW_WIDTH = 250
-var WINDOW_HEIGHT = 100
+var WINDOW_WIDTH = 300
+var WINDOW_HEIGHT = 140
 var CANCEL_BUTTON_WIDTH = 80
 var CANCEL_BUTTON_HEIGHT = 30
-var NEXT_BUTTON_X = 170
+var NEXT_BUTTON_X = 220
 var NEXT_BUTTON_WIDTH = 80
 var NEXT_BUTTON_HEIGHT = 30
 var LABEL_X = 20
 var LABEL_Y = 80
-var FIELD_X = 120
+var FIELD_X = 125
 var FIELD_Y = 80
-var FIELD_WIDTH = 40
+var FIELD_WIDTH = 30
 var FIELD_HEIGHT = 20
 
 var onRun = function(context)

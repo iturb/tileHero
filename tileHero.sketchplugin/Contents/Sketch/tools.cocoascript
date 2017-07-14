@@ -11,12 +11,10 @@ function createWindow(width, height, title)
     window.setTitle(title)
     window.setFrameOrigin(windowOrigin)
     window.setContentSize(windowSize)
-    window.styleMask = NSTitledWindowMask | NSTexturedBackgroundWindowMask
+    window.styleMask = NSTitledWindowMask
     
     var controller = [[NSViewController alloc] initWithNibName:"" bundle:nil]
     window.setContentViewController(controller)
-    
-    window.makeKeyAndOrderFront(undefined)
     
     return window
 }
