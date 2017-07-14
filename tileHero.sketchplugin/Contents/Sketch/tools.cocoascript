@@ -19,3 +19,13 @@ function createWindow(width, height)
     
     return window
 }
+
+function createButton(x, y, width, height, name, action)
+{
+    var buttonSize = NSMakeRect(x, y, width, height)
+    var button = NSButton.alloc().initWithFrame(buttonSize)
+    button.setTitle(name)
+    button.setCOSJSTargetFunction(action)
+    
+    return button
+}
