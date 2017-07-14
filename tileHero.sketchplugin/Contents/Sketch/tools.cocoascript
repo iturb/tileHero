@@ -1,0 +1,16 @@
+function createWindow(width, height)
+{
+    var screenSize = NSScreen.screens()[0].frame().size
+    var screenWidth = screenSize.width;
+    var screenHeight = screenSize.height;
+    var windowX = (screenWidth - width) / 2.0
+    var windowY = (screenHeight - height) / 2.0
+    var windowOrigin = NSMakePoint(windowX, windowY)
+    var windowSize = NSMakeSize(width, height)
+    var window = NSWindow.new()
+    window.setFrameOrigin(windowOrigin)
+    window.setContentSize(windowSize)
+    window.makeKeyAndOrderFront(undefined)
+    
+    return window
+}
