@@ -10,6 +10,7 @@ function createWindow(width, height)
     var window = NSWindow.new()
     window.setFrameOrigin(windowOrigin)
     window.setContentSize(windowSize)
+    window.styleMask = NSClosableWindowMask|NSTitledWindowMask|NSTexturedBackgroundWindowMask
     window.makeKeyAndOrderFront(undefined)
     
     return window

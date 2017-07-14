@@ -5,7 +5,7 @@ var WINDOW_HEIGHT = 300
 
 var onRun = function(context)
 {
-    log(createWindow(WINDOW_WIDTH, WINDOW_HEIGHT))
+    createWindow(WINDOW_WIDTH, WINDOW_HEIGHT)
     
     var artboards = []
     var sketch = context.api()
