@@ -8,12 +8,21 @@
         "run": "onRun"
       },
       "identifier": "iturbide.tileHero.uniformFill"
-    }
+    },
+   {
+      "script": "checkeredFill.cocoascript",
+      "name": "Checkered fill",
+      "handlers": {
+        "run": "onRun"
+       },
+      "identifier": "iturbide.tileHero.checkeredFill"
+   }
   ],
   "menu": {
     "title": "Tile Hero",
     "items": [
-      "iturbide.tileHero.uniformFill"
+      "iturbide.tileHero.uniformFill",
+      "iturbide.tileHero.checkeredFill"
     ]
   },
   "identifier": "iturbide.tileHero",
