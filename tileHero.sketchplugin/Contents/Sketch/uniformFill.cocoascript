@@ -25,15 +25,15 @@ var onRun = function(context)
     var window = createWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
     var cancelButton = createButton(0, 0, CANCEL_BUTTON_WIDTH, CANCEL_BUTTON_HEIGHT, CANCEL_BUTTON_TITLE, function(sender)
                                     {
+                                        window.orderOut(undefined)
                                         NSApp.stopModal()
-                                        window.close()
                                     })
     
     var nextButton = createButton(NEXT_BUTTON_X, 0, NEXT_BUTTON_WIDTH, NEXT_BUTTON_HEIGHT, NEXT_BUTTON_TITLE, function(sender)
                                     {
                                         shouldContinue = true
+                                        window.orderOut(undefined)
                                         NSApp.stopModal()
-                                        window.close()
                                     })
     
     var label = createLabel(LABEL_X, LABEL_Y, LABEL_TEXT)
@@ -49,7 +49,9 @@ var onRun = function(context)
     
     if (shouldContinue)
     {
-        
+        var separation = field.stringValue()
+        var uniformFill = new UniformFill(context)
+        uniformFill.makeTile(separation)
     }
     
     /*
@@ -89,9 +91,9 @@ function UniformFill(context)
     this.sketch = context.api();
 }
 
-UniformFill.prototype.makeTile = function()
+UniformFill.prototype.makeTile = function(separation)
 {
-    
+    log("yes "+separation)
 }
 
 function makeTile(artboard)
