@@ -1,6 +1,6 @@
 @import "tools.cocoascript"
 
-var TITLE = "Tile Hero: Uniform Fill"
+var TITLE = "Tile Hero: Random Dynamic-Spaced"
 var CANCEL_BUTTON_TITLE = "Cancel"
 var NEXT_BUTTON_TITLE = "Next"
 var LABEL_TEXT = "Fill ratio (min:1, max:10)"
@@ -8,7 +8,7 @@ var FIELD_TEXT = "5"
 var NO_ARTBOARD_SELECTED = "Select at least 1 Artboard"
 var MIN_RATIO = 1
 var MAX_RATIO = 10
-var COMPARE_RATIO = 11
+var COMPARE_RATIO = 21
 var WINDOW_WIDTH = 350
 var WINDOW_HEIGHT = 140
 var CANCEL_BUTTON_WIDTH = 80
@@ -141,8 +141,8 @@ RandomDynamicSpaced.prototype.makeFill = function(layer, artboardWidth, artboard
     var frame = layer.frame
     var width = frame.width
     var height = frame.height
-    var minX = width - 1
-    var minY = height - 1
+    var minX = 1 - width
+    var minY = 1 - height
     var maxX = artboardWidth
     var maxY = artboardHeight
     
