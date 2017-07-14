@@ -8,7 +8,7 @@ var FIELD_TEXT = "5"
 var NO_ARTBOARD_SELECTED = "Select at least 1 Artboard"
 var MIN_RATIO = 1
 var MAX_RATIO = 10
-var COMPARE_RATIO = 21
+var COMPARE_RATIO = 11
 var WINDOW_WIDTH = 350
 var WINDOW_HEIGHT = 140
 var CANCEL_BUTTON_WIDTH = 80
@@ -143,14 +143,13 @@ RandomDynamicSpaced.prototype.makeFill = function(layer, artboardWidth, artboard
     var height = frame.height
     var minX = 1 - width
     var minY = 1 - height
-    var maxX = artboardWidth
-    var maxY = artboardHeight
+    var compareRatio = this.dynamicCompareRatio(width, height)
     
-    for (var posX = minX; posX < maxX; posX++)
+    for (var posX = minX; posX < artboardWidth; posX++)
     {
-        for (var posY = minY; posY < maxY;)
+        for (var posY = minY; posY < artboardHeight;)
         {
-            var draw = this.shouldDraw()
+            var draw = this.shouldDraw(compareRatio)
             
             if (draw)
             {
@@ -230,9 +229,17 @@ RandomDynamicSpaced.prototype.draw = function(layer, positions)
     layer.remove()
 }
 
-RandomDynamicSpaced.prototype.shouldDraw = function()
+RandomDynamicSpaced.prototype.dynamicCompareRatio = function(width, height)
 {
-    var random = Math.random() * COMPARE_RATIO
+    var minSize = Math.min(width, height)
+    var compareRatio = COMPARE_RATIO * minSize * 2
+    
+    return compareRatio
+}
+
+RandomDynamicSpaced.prototype.shouldDraw = function(compareRatio)
+{
+    var random = Math.random() * compareRatio
     var value = Math.floor(random)
     
     return value < this.ratio

@@ -128,12 +128,10 @@ UniformFill.prototype.makeFill = function(layer, artboardWidth, artboardHeight)
     var height = frame.height
     var width_separation = width + this.separation
     var height_separation = height + this.separation
-    var maxX = artboardWidth
-    var maxY = artboardHeight
     
-    for (var posX = 0; posX < maxX;)
+    for (var posX = 0; posX < artboardWidth;)
     {
-        for (var posY = 0; posY < maxY;)
+        for (var posY = 0; posY < artboardHeight;)
         {
             var newLayer = layer.duplicate()
             var newFrame = newLayer.sketchObject.frame()

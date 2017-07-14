@@ -79,11 +79,9 @@ CheckeredFill.prototype.makeFill = function(layer, artboardWidth, artboardHeight
     var height = frame.height
     var width2 = width + width
     var height2 = height + height
-    var maxX = artboardWidth
-    var maxY = artboardHeight
     var line = 0
     
-    for (var posX = 0; posX < maxX;)
+    for (var posX = 0; posX < artboardWidth;)
     {
         var minY
         
@@ -96,7 +94,7 @@ CheckeredFill.prototype.makeFill = function(layer, artboardWidth, artboardHeight
             minY = 0
         }
         
-        for (var posY = minY; posY < maxY;)
+        for (var posY = minY; posY < artboardHeight;)
         {
             var newLayer = layer.duplicate()
             var newFrame = newLayer.sketchObject.frame()
