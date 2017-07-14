@@ -1,23 +1,23 @@
 @import "tools.cocoascript"
 
 var TITLE = "Tile Hero: Uniform fill"
-var CANCEL_BUTTON_TITLE = "CANCEL"
-var NEXT_BUTTON_TITLE = "CANCEL"
+var CANCEL_BUTTON_TITLE = "Cancel"
+var NEXT_BUTTON_TITLE = "Next"
 var LABEL_TEXT = "Pixel separation"
 var FIELD_TEXT = "0"
-var WINDOW_WIDTH = 300
-var WINDOW_HEIGHT = 140
-var CANCEL_BUTTON_WIDTH = 60
+var WINDOW_WIDTH = 250
+var WINDOW_HEIGHT = 100
+var CANCEL_BUTTON_WIDTH = 80
 var CANCEL_BUTTON_HEIGHT = 30
-var NEXT_BUTTON_X = 240
-var NEXT_BUTTON_WIDTH = 60
+var NEXT_BUTTON_X = 170
+var NEXT_BUTTON_WIDTH = 80
 var NEXT_BUTTON_HEIGHT = 30
 var LABEL_X = 20
 var LABEL_Y = 80
-var FIELD_X = 80
+var FIELD_X = 120
 var FIELD_Y = 80
-var FIELD_WIDTH = 60
-var FIELD_HEIGHT = 60
+var FIELD_WIDTH = 40
+var FIELD_HEIGHT = 20
 
 var onRun = function(context)
 {
@@ -38,6 +38,7 @@ var onRun = function(context)
     
     var label = createLabel(LABEL_X, LABEL_Y, LABEL_TEXT)
     var field = createField(FIELD_X, FIELD_Y, FIELD_WIDTH, FIELD_HEIGHT, FIELD_TEXT)
+    field.setAlignment(NSTextAlignmentRight)
     
     window.contentViewController().view().addSubview(cancelButton)
     window.contentViewController().view().addSubview(nextButton)
