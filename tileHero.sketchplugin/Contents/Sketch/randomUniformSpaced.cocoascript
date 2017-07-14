@@ -1,6 +1,6 @@
 @import "tools.cocoascript"
 
-var TITLE = "Tile Hero: Uniform Fill"
+var TITLE = "Tile Hero: Random Uniform-Spaced"
 var CANCEL_BUTTON_TITLE = "Cancel"
 var NEXT_BUTTON_TITLE = "Next"
 var LABEL_TEXT = "Fill ratio (min:1, max:10)"
