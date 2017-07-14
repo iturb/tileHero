@@ -5,24 +5,24 @@ var CANCEL_BUTTON_TITLE = "Cancel"
 var NEXT_BUTTON_TITLE = "Next"
 var LABEL_TEXT = "Pixel separation"
 var FIELD_TEXT = "0"
-var WINDOW_WIDTH = 300
+var WINDOW_WIDTH = 350
 var WINDOW_HEIGHT = 140
 var CANCEL_BUTTON_WIDTH = 80
 var CANCEL_BUTTON_HEIGHT = 30
-var NEXT_BUTTON_X = 220
+var NEXT_BUTTON_X = 270
 var NEXT_BUTTON_WIDTH = 80
 var NEXT_BUTTON_HEIGHT = 30
-var LABEL_X = 20
-var LABEL_Y = 80
-var FIELD_X = 125
-var FIELD_Y = 80
+var LABEL_X = 100
+var LABEL_Y = 100
+var FIELD_X = 205
+var FIELD_Y = 100
 var FIELD_WIDTH = 30
 var FIELD_HEIGHT = 20
 
 var onRun = function(context)
 {
-    var window = createWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
     var shouldContinue = false
+    var window = createWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
     var cancelButton = createButton(0, 0, CANCEL_BUTTON_WIDTH, CANCEL_BUTTON_HEIGHT, CANCEL_BUTTON_TITLE, function(sender)
                                     {
                                         NSApp.stopModal()
@@ -47,6 +47,10 @@ var onRun = function(context)
     
     NSApp.runModalForWindow(window)
     
+    if (shouldContinue)
+    {
+        
+    }
     
     /*
     var artboards = []
@@ -79,6 +83,16 @@ var onRun = function(context)
         }
     }*/
 };
+
+function UniformFill(context)
+{
+    this.sketch = context.api();
+}
+
+UniformFill.prototype.makeTile = function()
+{
+    
+}
 
 function makeTile(artboard)
 {

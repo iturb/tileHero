@@ -11,6 +11,7 @@ function createWindow(width, height, title)
     window.setTitle(title)
     window.setFrameOrigin(windowOrigin)
     window.setContentSize(windowSize)
+    window.setMinSize(windowSize)
     window.styleMask = NSTitledWindowMask
     
     var controller = [[NSViewController alloc] initWithNibName:"" bundle:nil]
