@@ -1,4 +1,4 @@
-function createWindow(width, height)
+function createWindow(width, height, title)
 {
     var screenSize = NSScreen.screens()[0].frame().size
     var screenWidth = screenSize.width;
@@ -8,6 +8,7 @@ function createWindow(width, height)
     var windowOrigin = NSMakePoint(windowX, windowY)
     var windowSize = NSMakeSize(width, height)
     var window = NSWindow.new()
+    window.setTitle(title)
     window.setFrameOrigin(windowOrigin)
     window.setContentSize(windowSize)
     window.styleMask = NSTitledWindowMask | NSTexturedBackgroundWindowMask
