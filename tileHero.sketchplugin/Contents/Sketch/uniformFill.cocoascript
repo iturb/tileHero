@@ -65,7 +65,6 @@ function UniformFill(context, separation)
 
 UniformFill.prototype.makeTile = function()
 {
-    this.separation = separation
     var artboards = []
     var layers = this.sketch.selectedDocument.selectedLayers
     
