@@ -31,3 +31,20 @@ function createButton(x, y, width, height, title, action)
     
     return button
 }
+
+function createLabel(x, y, text)
+{
+    var frame = NSMakeRect(0, 0, 0, 0)
+    var field = NSTextField.alloc().initWithFrame(frame)
+    field.setEditable(false)
+    field.setBordered(false)
+    field.setDrawsBackground(false)
+    field.setStringValue(text)
+    field.sizeToFit()
+    
+    var size = field.frame().size
+    frame = NSMakeRect(x, y, size.width, size.height)
+    field.setFrame(frame)
+    
+    return field
+}
