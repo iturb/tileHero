@@ -1,0 +1,151 @@
+@import "tools.cocoascript"
+
+var TITLE = "Tile Hero: Uniform Fill"
+var CANCEL_BUTTON_TITLE = "Cancel"
+var NEXT_BUTTON_TITLE = "Next"
+var LABEL_TEXT = "Pixel separation"
+var FIELD_TEXT = "1"
+var NO_ARTBOARD_SELECTED = "Select at least 1 Artboard"
+var WINDOW_WIDTH = 350
+var WINDOW_HEIGHT = 140
+var CANCEL_BUTTON_WIDTH = 80
+var CANCEL_BUTTON_HEIGHT = 30
+var NEXT_BUTTON_X = 270
+var NEXT_BUTTON_WIDTH = 80
+var NEXT_BUTTON_HEIGHT = 30
+var LABEL_X = 100
+var LABEL_Y = 100
+var FIELD_X = 205
+var FIELD_Y = 100
+var FIELD_WIDTH = 30
+var FIELD_HEIGHT = 20
+
+var onRun = function(context)
+{
+    var shouldContinue = false
+    var window = createWindow(WINDOW_WIDTH, WINDOW_HEIGHT, TITLE)
+    var cancelButton = createButton(0, 0, CANCEL_BUTTON_WIDTH, CANCEL_BUTTON_HEIGHT, CANCEL_BUTTON_TITLE, function(sender)
+                                    {
+                                        window.orderOut(undefined)
+                                        NSApp.stopModal()
+                                    })
+    
+    var nextButton = createButton(NEXT_BUTTON_X, 0, NEXT_BUTTON_WIDTH, NEXT_BUTTON_HEIGHT, NEXT_BUTTON_TITLE, function(sender)
+                                    {
+                                        shouldContinue = true
+                                        window.orderOut(undefined)
+                                        NSApp.stopModal()
+                                    })
+    
+    var label = createLabel(LABEL_X, LABEL_Y, LABEL_TEXT)
+    var field = createField(FIELD_X, FIELD_Y, FIELD_WIDTH, FIELD_HEIGHT, FIELD_TEXT)
+    field.setAlignment(NSTextAlignmentRight)
+    
+    window.contentViewController().view().addSubview(cancelButton)
+    window.contentViewController().view().addSubview(nextButton)
+    window.contentViewController().view().addSubview(label)
+    window.contentViewController().view().addSubview(field)
+    
+    NSApp.runModalForWindow(window)
+    
+    if (shouldContinue)
+    {
+        var separation = field.stringValue().intValue()
+        var uniformFill = new UniformFill(context)
+        uniformFill.makeTile(separation)
+    }
+};
+
+function UniformFill(context)
+{
+    this.context = context
+    this.sketch = context.api()
+    this.separation
+}
+
+UniformFill.prototype.makeTile = function(separation)
+{
+    this.separation = separation
+    var artboards = []
+    var layers = this.sketch.selectedDocument.selectedLayers
+    
+    layers.iterate
+    (
+        function(item)
+        {
+            if (item.isArtboard)
+            {
+                artboards.push(item);
+            }
+        }
+     )
+    
+    var countArtboards = artboards.length
+    
+    if (countArtboards < 1)
+    {
+        this.context.document.showMessage(NO_ARTBOARD_SELECTED)
+    }
+    else
+    {
+        for (var indexArtboard = 0; indexArtboard < countArtboards; indexArtboard++)
+        {
+            var artboard = artboards[indexArtboard]
+            
+            this.makeTileForArtboard(artboard)
+        }
+    }
+}
+
+UniformFill.prototype.makeTileForArtboard = function(artboard)
+{
+    var artboardFrame = artboard.frame
+    var artboardWidth = artboardFrame.width
+    var artboardHeight = artboardFrame.height
+    var layers = []
+    
+    artboard.iterate
+    (
+        function(item)
+        {
+            layers.push(item)
+        }
+    )
+    
+    var countLayers = layers.length
+    
+    for (var indexLayer = 0; indexLayer < countLayers; indexLayer++)
+    {
+        var layer = layers[indexLayer]
+        
+        this.makeFill(layer, artboardWidth, artboardHeight)
+    }
+}
+
+UniformFill.prototype.makeFill = function(layer, artboardWidth, artboardHeight)
+{
+    var frame = layer.frame
+    var width = frame.width
+    var height = frame.height
+    var width_separation = width + this.separation
+    var height_separation = height + this.separation
+    var maxX = artboardWidth
+    var maxY = artboardHeight
+    
+    for (var posX = 0; posX < maxX;)
+    {
+        for (var posY = 0; posY < maxY;)
+        {
+            var newLayer = layer.duplicate()
+            var newFrame = newLayer.sketchObject.frame()
+            newFrame.setX(posX)
+            newFrame.setY(posY)
+            
+            posY += height_separation
+        }
+        
+        posX += width_separation
+    }
+    
+    layer.remove()
+}
