@@ -20,15 +20,6 @@
                 "run": "onRun"
             },
             "identifier": "iturbide.tileHero.checkeredFill"
-        }
-        {
-            "script": "checkeredFill.cocoascript",
-            "name": "Checkered fill",
-            "handlers":
-            {
-                "run": "onRun"
-            },
-            "identifier": "iturbide.tileHero.checkeredFill"
         },
         {
             "script": "randomUniformSpaced.cocoascript",
