@@ -1,5 +1,12 @@
+@import "tools.cocoascript"
+
+var WINDOW_WIDTH = 500
+var WINDOW_HEIGHT = 300
+
 var onRun = function(context)
 {
+    log(createWindow(WINDOW_WIDTH, WINDOW_HEIGHT))
+    
     var artboards = []
     var sketch = context.api()
     var layers = sketch.selectedDocument.selectedLayers
