@@ -26,7 +26,7 @@ function createButton(x, y, width, height, title, action)
     var buttonSize = NSMakeRect(x, y, width, height)
     var button = NSButton.alloc().initWithFrame(buttonSize)
     button.setBezelStyle(NSRoundedBezelStyle)
-    button.setTitle(name)
+    button.setTitle(title)
     button.setCOSJSTargetFunction(action)
     
     return button
