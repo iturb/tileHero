@@ -1,12 +1,24 @@
 @import "tools.cocoascript"
 
+var CANCEL_BUTTON_TITLE = "CANCEL"
 var WINDOW_WIDTH = 500
 var WINDOW_HEIGHT = 300
+var CANCEL_BUTTON_WIDTH = 60
+var CANCEL_BUTTON_HEIGHT = 30
 
 var onRun = function(context)
 {
-    createWindow(WINDOW_WIDTH, WINDOW_HEIGHT)
+    var window = createWindow(WINDOW_WIDTH, WINDOW_HEIGHT)
+    var cancelButton = createButton(0, 0, CANCEL_BUTTON_WIDTH, CANCEL_BUTTON_HEIGHT, CANCEL_BUTTON_TITLE, function(sender)
+                                    {
+                                        NSApp.stopModal()
+                                        window.close()
+                                    })
     
+    NSApp.runModalForWindow(window)
+    
+    
+    /*
     var artboards = []
     var sketch = context.api()
     var layers = sketch.selectedDocument.selectedLayers
@@ -35,7 +47,7 @@ var onRun = function(context)
             var artboard = artboards[indexArtboard]
             makeTile(artboard)
         }
-    }
+    }*/
 };
 
 function makeTile(artboard)
