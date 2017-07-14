@@ -5,6 +5,7 @@ var CANCEL_BUTTON_TITLE = "Cancel"
 var NEXT_BUTTON_TITLE = "Next"
 var LABEL_TEXT = "Pixel separation"
 var FIELD_TEXT = "0"
+var NO_ARTBOARD_SELECTED = "Select at least 1 Artboard"
 var WINDOW_WIDTH = 350
 var WINDOW_HEIGHT = 140
 var CANCEL_BUTTON_WIDTH = 80
@@ -49,15 +50,24 @@ var onRun = function(context)
     
     if (shouldContinue)
     {
-        var separation = field.stringValue()
+        var separation = field.stringValue().intValue()
         var uniformFill = new UniformFill(context)
         uniformFill.makeTile(separation)
     }
-    
-    /*
+};
+
+function UniformFill(context)
+{
+    this.context = context
+    this.sketch = context.api()
+    this.separation
+}
+
+UniformFill.prototype.makeTile = function(separation)
+{
+    this.separation = separation
     var artboards = []
-    var sketch = context.api()
-    var layers = sketch.selectedDocument.selectedLayers
+    var layers = this.sketch.selectedDocument.selectedLayers
     
     layers.iterate
     (
@@ -68,35 +78,26 @@ var onRun = function(context)
                 artboards.push(item);
             }
         }
-    )
+     )
     
     var countArtboards = artboards.length
     
     if (countArtboards < 1)
     {
-        context.document.showMessage("Select at least 1 Artboard")
+        this.context.document.showMessage(NO_ARTBOARD_SELECTED)
     }
     else
     {
         for (var indexArtboard = 0; indexArtboard < countArtboards; indexArtboard++)
         {
             var artboard = artboards[indexArtboard]
-            makeTile(artboard)
+            
+            this.makeTileForArtboard(artboard)
         }
-    }*/
-};
-
-function UniformFill(context)
-{
-    this.sketch = context.api();
+    }
 }
 
-UniformFill.prototype.makeTile = function(separation)
-{
-    log("yes "+separation)
-}
-
-function makeTile(artboard)
+UniformFill.prototype.makeTileForArtboard = function(artboard)
 {
     var artboardFrame = artboard.frame
     var artboardWidth = artboardFrame.width
@@ -116,33 +117,36 @@ function makeTile(artboard)
     for (var indexLayer = 0; indexLayer < countLayers; indexLayer++)
     {
         var layer = layers[indexLayer]
-        randomize(layer, artboardWidth, artboardHeight)
+        
+        this.makeFill(layer, artboardWidth, artboardHeight)
     }
 }
 
-function randomize(layer, artboardWidth, artboardHeight)
+UniformFill.prototype.makeFill = function(layer, artboardWidth, artboardHeight)
 {
     var frame = layer.frame
     var width = frame.width
     var height = frame.height
+    var width_separation = width + this.separation
+    var height_separation = height + this.separation
     var minX = 1 - width
     var maxX = artboardWidth
     var minY = 1 - height
     var maxY = artboardHeight
     
-    for (var posX = minX; posX < maxX; posX++)
+    for (var posX = minX; posX < maxX;)
     {
-        for (var posY = minY; posY < maxY; posY++)
+        for (var posY = minY; posY < maxY;)
         {
             var newLayer = layer.duplicate()
             var newFrame = newLayer.sketchObject.frame()
             newFrame.setX(posX)
             newFrame.setY(posY)
             
-            posY += height
+            posY += height_separation
         }
         
-        posX += width
+        posX += width_separation
     }
     
     layer.remove()
