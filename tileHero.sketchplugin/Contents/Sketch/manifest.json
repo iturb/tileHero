@@ -29,6 +29,15 @@
                 "run": "onRun"
             },
             "identifier": "iturbide.tileHero.randomUniformSpaced"
+         },
+         {
+            "script": "randomDynamicSpaced.cocoascript",
+            "name": "Random Dynamic-spaced",
+            "handlers":
+            {
+                "run": "onRun"
+            },
+            "identifier": "iturbide.tileHero.randomDynamicSpaced"
          }
      ],
     "menu":
@@ -38,7 +47,8 @@
         [
             "iturbide.tileHero.uniformFill",
             "iturbide.tileHero.checkeredFill",
-            "iturbide.tileHero.randomUniformSpaced"
+            "iturbide.tileHero.randomUniformSpaced",
+            "iturbide.tileHero.randomDynamicSpaced"
          ]
     },
     "identifier": "iturbide.tileHero",
