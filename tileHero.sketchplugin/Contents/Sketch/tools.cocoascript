@@ -1,10 +1,10 @@
 var NO_ARTBOARD_SELECTED = "Select at least 1 Artboard"
 
-function layersFromSketch(sketch)
+function layersFromContext(context)
 {
     var allLayers = []
     var artboards = []
-    var layers = sketch.selectedDocument.selectedLayers
+    var layers = context.api().selectedDocument.selectedLayers
     
     layers.iterate
     (
@@ -21,7 +21,7 @@ function layersFromSketch(sketch)
     
     if (countArtboards < 1)
     {
-        this.context.document.showMessage(NO_ARTBOARD_SELECTED)
+        context.document.showMessage(NO_ARTBOARD_SELECTED)
     }
     else
     {
