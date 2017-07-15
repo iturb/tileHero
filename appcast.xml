@@ -6,13 +6,13 @@
         <description>Generate swift code from colours</description>
         <language>en</language>
         <item>
-            <title>Version 1.1</title>
+            <title>Version 1.1.1</title>
             <description>
                 <![CDATA[
-                    Decrease repeating ratio in Random Dynamic
+                    Exclude locked layers
                 ]]>
             </description>
-            <enclosure url="https://github.com/iturb/tileHero/archive/master.zip" sparkle:version="1.1" />
+            <enclosure url="https://github.com/iturb/tileHero/archive/master.zip" sparkle:version="1.1.1" />
         </item>
     </channel>
 </rss>
