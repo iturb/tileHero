@@ -82,23 +82,11 @@ RandomUniformSpaced.prototype.makeTile = function()
     for (var indexTileLayer = 0; indexTileLayer < countTileLayers; indexTileLayer++)
     {
         var tileLayer = tileLayers[indexTileLayer]
-        this.makeCheckeredFill(tileLayer.layer, tileLayer.width, tileLayer.height)
+        this.makeRandomUniformSpacedFill(tileLayer.layer, tileLayer.width, tileLayer.height)
     }
 }
 
-RandomUniformSpaced.prototype.makeTileForArtboard = function(artboard)
-{
-    var countLayers = artboard.layers.length
-    
-    for (var indexLayer = 0; indexLayer < countLayers; indexLayer++)
-    {
-        var layer = artboard.layers[indexLayer]
-        
-        this.makeRandomUniformFill(layer, artboard.width, artboard.height)
-    }
-}
-
-RandomUniformSpaced.prototype.makeRandomUniformFill = function(layer, artboardWidth, artboardHeight)
+RandomUniformSpaced.prototype.makeRandomUniformSpacedFill = function(layer, artboardWidth, artboardHeight)
 {
     var frame = layer.frame
     var width = frame.width
