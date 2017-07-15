@@ -1,7 +1,5 @@
 @import "tools.cocoascript"
 
-var NO_ARTBOARD_SELECTED = "Select at least 1 Artboard"
-
 var onRun = function(context)
 {
     var checkerdFill = new CheckeredFill(context)

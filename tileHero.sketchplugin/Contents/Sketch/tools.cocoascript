@@ -1,3 +1,61 @@
+var NO_ARTBOARD_SELECTED = "Select at least 1 Artboard"
+
+function layersFromSketch(sketch)
+{
+    var allLayers = []
+    var artboards = []
+    var layers = sketch.selectedDocument.selectedLayers
+    
+    layers.iterate
+    (
+        function(item)
+        {
+            if (item.isArtboard)
+            {
+                artboards.push(item)
+            }
+        }
+     )
+    
+    var countArtboards = artboards.length
+    
+    if (countArtboards < 1)
+    {
+        this.context.document.showMessage(NO_ARTBOARD_SELECTED)
+    }
+    else
+    {
+        for (var indexArtboard = 0; indexArtboard < countArtboards; indexArtboard++)
+        {
+            var artboard = artboards[indexArtboard]
+            var artboardLayers = layersFromArtboard(artboard)
+            allLayers = allLayers.concat(artboardLayers)
+        }
+    }
+    
+    return allLayers
+}
+
+function layersFromArtboard(artboard)
+{
+    var layers = []
+    
+    artboard.iterate
+    (
+        function(item)
+        {
+            var isLocked = item.sketchObject.isLocked()
+
+            if (!isLocked)
+            {
+                layers.push(item)
+            }
+        }
+    )
+    
+    return layers
+}
+
 function createWindow(width, height, title)
 {
     var screenSize = NSScreen.screens()[0].frame().size
