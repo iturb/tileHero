@@ -29,7 +29,7 @@ function layersFromContext(context)
         {
             var artboard = artboards[indexArtboard]
             var artboardLayers = layersFromArtboard(artboard)
-            allLayers = allLayers.concat(artboardLayers)
+            allLayers.push(artboardLayers)
         }
     }
     
@@ -38,6 +38,9 @@ function layersFromContext(context)
 
 function layersFromArtboard(artboard)
 {
+    var artboardFrame = artboard.frame
+    var width = artboardFrame.width
+    var height = artboardFrame.height
     var layers = []
     
     artboard.iterate
@@ -53,7 +56,9 @@ function layersFromArtboard(artboard)
         }
     )
     
-    return layers
+    var artboardLayers = new ArtboardLayers(width, height, layers)
+    
+    return artboardLayers
 }
 
 function createWindow(width, height, title)
