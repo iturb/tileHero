@@ -9,73 +9,33 @@ var onRun = function(context)
 function CheckeredFill(context)
 {
     this.context = context
-    this.sketch = context.api()
 }
 
 CheckeredFill.prototype.makeTile = function()
 {
-    var artboards = []
-    var layers = this.sketch.selectedDocument.selectedLayers
-    
-    layers.iterate
-    (
-        function(item)
-        {
-            if (item.isArtboard)
-            {
-                artboards.push(item);
-            }
-        }
-     )
-    
+    var artboards = layersFromContext(this.context)
     var countArtboards = artboards.length
     
-    if (countArtboards < 1)
+    for (var indexArtboards = 0; indexArtboards < countArtboards; indexArtboards++)
     {
-        this.context.document.showMessage(NO_ARTBOARD_SELECTED)
-    }
-    else
-    {
-        for (var indexArtboard = 0; indexArtboard < countArtboards; indexArtboard++)
-        {
-            var artboard = artboards[indexArtboard]
-            
-            this.makeTileForArtboard(artboard)
-        }
+        var artboard = artboards[indexArtboards]
+        this.makeTileForArtboard(artboard)
     }
 }
 
 CheckeredFill.prototype.makeTileForArtboard = function(artboard)
 {
-    var artboardFrame = artboard.frame
-    var artboardWidth = artboardFrame.width
-    var artboardHeight = artboardFrame.height
-    var layers = []
-    
-    artboard.iterate
-    (
-        function(item)
-        {
-            var isLocked = item.sketchObject.isLocked()
-     
-            if (!isLocked)
-            {
-                layers.push(item)
-            }
-        }
-    )
-    
-    var countLayers = layers.length
+    var countLayers = artboard.layers.length
     
     for (var indexLayer = 0; indexLayer < countLayers; indexLayer++)
     {
-        var layer = layers[indexLayer]
+        var layer = artboard.layers[indexLayer]
         
-        this.makeFill(layer, artboardWidth, artboardHeight)
+        this.makeCheckeredFill(layer, artboard.width, artboard.height)
     }
 }
 
-CheckeredFill.prototype.makeFill = function(layer, artboardWidth, artboardHeight)
+CheckeredFill.prototype.makeCheckeredFill = function(layer, artboardWidth, artboardHeight)
 {
     var frame = layer.frame
     var width = frame.width
