@@ -2,7 +2,7 @@ var NO_ARTBOARD_SELECTED = "Select at least 1 Artboard"
 
 function layersFromContext(context)
 {
-    var allLayers = []
+    var tileLayers = []
     var artboards = []
     var layers = context.api().selectedDocument.selectedLayers
     
@@ -28,12 +28,12 @@ function layersFromContext(context)
         for (var indexArtboard = 0; indexArtboard < countArtboards; indexArtboard++)
         {
             var artboard = artboards[indexArtboard]
-            var artboardLayers = layersFromArtboard(artboard)
-            allLayers.push(artboardLayers)
+            var artboardTileLayers = layersFromArtboard(artboard)
+            tileLayers = tileLayers.concat(artboardTileLayers)
         }
     }
     
-    return allLayers
+    return tileLayers
 }
 
 function layersFromArtboard(artboard)
@@ -41,7 +41,7 @@ function layersFromArtboard(artboard)
     var artboardFrame = artboard.frame
     var width = artboardFrame.width
     var height = artboardFrame.height
-    var layers = []
+    var tileLayers = []
     
     artboard.iterate
     (
@@ -51,14 +51,14 @@ function layersFromArtboard(artboard)
 
             if (!isLocked)
             {
-                layers.push(item)
+                var tileLayer = new TileLayer(width, height, item)
+     
+                tileLayers.push(tileLayer)
             }
         }
     )
     
-    var artboardLayers = new ArtboardLayers(width, height, layers)
-    
-    return artboardLayers
+    return tileLayers
 }
 
 function createWindow(width, height, title)
@@ -121,9 +121,9 @@ function createField(x, y, width, height, text)
     return field
 }
 
-function ArtboardLayers(width, height, layers)
+function TileLayer(width, height, layer)
 {
     this.width = width
     this.height = height
-    this.layers = layers
+    this.layers = layer
 }
