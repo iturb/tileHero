@@ -115,3 +115,10 @@ function createField(x, y, width, height, text)
     
     return field
 }
+
+function ArtboardLayers(width, height, layers)
+{
+    this.width = width
+    this.height = height
+    this.layers = layers
+}
