@@ -58,7 +58,12 @@ CheckeredFill.prototype.makeTileForArtboard = function(artboard)
     (
         function(item)
         {
-            layers.push(item)
+            var isLocked = item.sketchObject.isLocked()
+     
+            if (!isLocked)
+            {
+                layers.push(item)
+            }
         }
     )
     
