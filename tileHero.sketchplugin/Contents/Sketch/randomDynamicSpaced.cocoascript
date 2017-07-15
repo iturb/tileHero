@@ -5,7 +5,6 @@ var CANCEL_BUTTON_TITLE = "Cancel"
 var NEXT_BUTTON_TITLE = "Next"
 var LABEL_TEXT = "Fill ratio (min:1, max:10)"
 var FIELD_TEXT = "5"
-var NO_ARTBOARD_SELECTED = "Select at least 1 Artboard"
 var MIN_RATIO = 1
 var MAX_RATIO = 10
 var COMPARE_RATIO = 110
@@ -72,69 +71,22 @@ var onRun = function(context)
 function RandomDynamicSpaced(context, ratio)
 {
     this.context = context
-    this.sketch = context.api()
     this.ratio = ratio * ratio
 }
 
 RandomDynamicSpaced.prototype.makeTile = function()
 {
-    var artboards = []
-    var layers = this.sketch.selectedDocument.selectedLayers
+    var tileLayers = layersFromContext(this.context)
+    var countTileLayers = tileLayers.length
     
-    layers.iterate
-    (
-        function(item)
-        {
-            if (item.isArtboard)
-            {
-                artboards.push(item);
-            }
-        }
-     )
-    
-    var countArtboards = artboards.length
-    
-    if (countArtboards < 1)
+    for (var indexTileLayer = 0; indexTileLayer < countTileLayers; indexTileLayer++)
     {
-        this.context.document.showMessage(NO_ARTBOARD_SELECTED)
-    }
-    else
-    {
-        for (var indexArtboard = 0; indexArtboard < countArtboards; indexArtboard++)
-        {
-            var artboard = artboards[indexArtboard]
-            
-            this.makeTileForArtboard(artboard)
-        }
+        var tileLayer = tileLayers[indexTileLayer]
+        this.makeRadonDynamicSpacedFill(tileLayer.layer, tileLayer.width, tileLayer.height)
     }
 }
 
-RandomDynamicSpaced.prototype.makeTileForArtboard = function(artboard)
-{
-    var artboardFrame = artboard.frame
-    var artboardWidth = artboardFrame.width
-    var artboardHeight = artboardFrame.height
-    var layers = []
-    
-    artboard.iterate
-    (
-        function(item)
-        {
-            layers.push(item)
-        }
-    )
-    
-    var countLayers = layers.length
-    
-    for (var indexLayer = 0; indexLayer < countLayers; indexLayer++)
-    {
-        var layer = layers[indexLayer]
-        
-        this.makeFill(layer, artboardWidth, artboardHeight)
-    }
-}
-
-RandomDynamicSpaced.prototype.makeFill = function(layer, artboardWidth, artboardHeight)
+RandomDynamicSpaced.prototype.makeRadonDynamicSpacedFill = function(layer, artboardWidth, artboardHeight)
 {
     var allPositions = []
     var drawPositions = []
