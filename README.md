@@ -1,5 +1,15 @@
 # Tile Hero
-Sketch plugin to auto generate tiles
+Sketch plugin to auto generate tiles and patterns
+
+
+## Instructions
+
+1. Download zip
+2. Unarchive
+3. Place **.sketchplugin** on
+   *~/Library/Application Support/com.bohemiancoding.sketch3/Plugins/*
+4. Restart Sketch App (recommended)
+5. Enjoy
 
 
 ## Features
@@ -10,8 +20,9 @@ Sketch plugin to auto generate tiles
 ![](tileHeroUniformFill.gif)
 
 - Repeats layers in every selected Artboards
-- You can define the separation
-- Need to have at least 1 Artboard selected
+- Excludes locked layers
+- You can define the separation in pixels
+- Select the Artboard(s) you want to make tile
 
 
 
@@ -21,7 +32,8 @@ Sketch plugin to auto generate tiles
 
 - Repeats layers in every selected Artboards
   with a checkered pattern
-- Need to have at least 1 Artboard selected
+- Excludes locked layers
+- Select the Artboard(s) you want to make tile
 
 
 
@@ -32,8 +44,9 @@ Sketch plugin to auto generate tiles
 - Repeats layers in every selected Artboards
   with a random pattern, empty spaces are of
   the same size as the layer being repeated
+- Excludes locked layers
 - You can define the repeat ratio
-- Need to have at least 1 Artboard selected
+- Select the Artboard(s) you want to make tile
 
 
 
@@ -43,6 +56,18 @@ Sketch plugin to auto generate tiles
 
 - Repeats layers in every selected Artboards
   with a random pattern
+- Excludes locked layers
 - You can define the repeat ratio
-- Need to have at least 1 Artboard selected
+- Select the Artboard(s) you want to make tile
+
+
+
+## Licence
+
+MIT Licence
+
+
+## Contact
+
+reach@iturbi.de
 
