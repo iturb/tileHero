@@ -51,7 +51,7 @@ function layersFromArtboard(artboard)
 
             if (!isLocked)
             {
-                var tileLayer = new TileLayer(width, height, item)
+                var tileLayer = new TileLayer(item, width, height)
      
                 tileLayers.push(tileLayer)
             }
@@ -121,9 +121,9 @@ function createField(x, y, width, height, text)
     return field
 }
 
-function TileLayer(width, height, layer)
+function TileLayer(layer, width, height)
 {
+    this.layer = layer
     this.width = width
     this.height = height
-    this.layers = layer
 }
