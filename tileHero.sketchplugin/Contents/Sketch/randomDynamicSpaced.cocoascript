@@ -7,7 +7,7 @@ var LABEL_TEXT = "Fill ratio (min:1, max:10)"
 var FIELD_TEXT = "5"
 var MIN_RATIO = 1
 var MAX_RATIO = 10
-var COMPARE_RATIO = 110
+var COMPARE_RATIO = 11
 var WINDOW_WIDTH = 350
 var WINDOW_HEIGHT = 140
 var CANCEL_BUTTON_WIDTH = 80
@@ -71,7 +71,7 @@ var onRun = function(context)
 function RandomDynamicSpaced(context, ratio)
 {
     this.context = context
-    this.ratio = ratio * ratio
+    this.ratio = ratio
 }
 
 RandomDynamicSpaced.prototype.makeTile = function()
@@ -184,7 +184,7 @@ RandomDynamicSpaced.prototype.draw = function(layer, positions)
 RandomDynamicSpaced.prototype.dynamicCompareRatio = function(width, height)
 {
     var minSize = Math.min(width, height)
-    var compareRatio = COMPARE_RATIO * minSize
+    var compareRatio = COMPARE_RATIO * minSize * minSize
     
     return compareRatio
 }
