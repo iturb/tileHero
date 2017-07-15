@@ -76,13 +76,13 @@ function RandomUniformSpaced(context, ratio)
 
 RandomUniformSpaced.prototype.makeTile = function()
 {
-    var artboards = layersFromContext(this.context)
-    var countArtboards = artboards.length
+    var tileLayers = layersFromContext(this.context)
+    var countTileLayers = tileLayers.length
     
-    for (var indexArtboards = 0; indexArtboards < countArtboards; indexArtboards++)
+    for (var indexTileLayer = 0; indexTileLayer < countTileLayers; indexTileLayer++)
     {
-        var artboard = artboards[indexArtboards]
-        this.makeTileForArtboard(artboard)
+        var tileLayer = tileLayers[indexTileLayer]
+        this.makeCheckeredFill(tileLayer.layer, tileLayer.width, tileLayer.height)
     }
 }
 
@@ -94,11 +94,11 @@ RandomUniformSpaced.prototype.makeTileForArtboard = function(artboard)
     {
         var layer = artboard.layers[indexLayer]
         
-        this.makeDynamicFill(layer, artboard.width, artboard.height)
+        this.makeRandomUniformFill(layer, artboard.width, artboard.height)
     }
 }
 
-RandomUniformSpaced.prototype.makeDynamicFill = function(layer, artboardWidth, artboardHeight)
+RandomUniformSpaced.prototype.makeRandomUniformFill = function(layer, artboardWidth, artboardHeight)
 {
     var frame = layer.frame
     var width = frame.width
