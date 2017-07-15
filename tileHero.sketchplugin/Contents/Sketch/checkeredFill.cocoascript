@@ -2,8 +2,8 @@
 
 var onRun = function(context)
 {
-    var checkerdFill = new CheckeredFill(context)
-    checkerdFill.makeTile()
+    var checkeredFill = new CheckeredFill(context)
+    checkeredFill.makeTile()
 };
 
 function CheckeredFill(context)
