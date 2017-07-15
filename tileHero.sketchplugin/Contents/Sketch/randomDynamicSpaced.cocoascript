@@ -8,7 +8,7 @@ var FIELD_TEXT = "5"
 var NO_ARTBOARD_SELECTED = "Select at least 1 Artboard"
 var MIN_RATIO = 1
 var MAX_RATIO = 10
-var COMPARE_RATIO = 20
+var COMPARE_RATIO = 110
 var WINDOW_WIDTH = 350
 var WINDOW_HEIGHT = 140
 var CANCEL_BUTTON_WIDTH = 80
@@ -73,7 +73,7 @@ function RandomDynamicSpaced(context, ratio)
 {
     this.context = context
     this.sketch = context.api()
-    this.ratio = ratio
+    this.ratio = ratio * ratio
 }
 
 RandomDynamicSpaced.prototype.makeTile = function()
@@ -232,7 +232,7 @@ RandomDynamicSpaced.prototype.draw = function(layer, positions)
 RandomDynamicSpaced.prototype.dynamicCompareRatio = function(width, height)
 {
     var minSize = Math.min(width, height)
-    var compareRatio = COMPARE_RATIO * minSize * 2
+    var compareRatio = COMPARE_RATIO * minSize
     
     return compareRatio
 }
