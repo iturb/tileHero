@@ -13,25 +13,13 @@ function CheckeredFill(context)
 
 CheckeredFill.prototype.makeTile = function()
 {
-    var artboards = layersFromContext(this.context)
-    var countArtboards = artboards.length
+    var tileLayers = layersFromContext(this.context)
+    var countTileLayers = tileLayers.length
     
-    for (var indexArtboards = 0; indexArtboards < countArtboards; indexArtboards++)
+    for (var indexTileLayer = 0; indexTileLayer < countTileLayers; indexTileLayer++)
     {
-        var artboard = artboards[indexArtboards]
-        this.makeTileForArtboard(artboard)
-    }
-}
-
-CheckeredFill.prototype.makeTileForArtboard = function(artboard)
-{
-    var countLayers = artboard.layers.length
-    
-    for (var indexLayer = 0; indexLayer < countLayers; indexLayer++)
-    {
-        var layer = artboard.layers[indexLayer]
-        
-        this.makeCheckeredFill(layer, artboard.width, artboard.height)
+        var tileLayer = tileLayers[indexTileLayer]
+        this.makeCheckeredFill(tileLayer.layer, tileLayer.width, tileLayer.height)
     }
 }
 
